@@ -1,85 +1,71 @@
 /**
- * Author: Simon Lindholm
- * Date: 2015-02-18
- * License: CC0
- * Source: marian's (TC) code
- * Description: Aho-Corasick automaton, used for multiple pattern matching.
- * Initialize with AhoCorasick ac(patterns); the automaton start node will be at index 0.
- * find(word) returns for each position the index of the longest word that ends there, or -1 if none.
- * findAll($-$, word) finds all words (up to $N \sqrt N$ many if no duplicate patterns)
- * that start at each position (shortest first).
- * Duplicate patterns are allowed; empty patterns are not.
- * To find the longest words that start at each position, reverse all input.
- * For large alphabets, split each symbol into chunks, with sentinel bits for symbol boundaries.
- * Time: construction takes $O(26N)$, where $N =$ sum of length of patterns.
- * find(x) is $O(N)$, where N = length of x. findAll is $O(NM)$.
+ * Author: Efe Demirler
+ * License: MIT
+ * Description: Aho-Corasick automaton for multiple pattern matching.
+ * Initialize with Corasick ac(patterns); root is node 0. After construction,
+ * vec[v].go[c] is the full automaton transition (never -1), vec[v].link is the
+ * suffix link (longest proper suffix of v's string that is also a trie node),
+ * and vec[v].labels lists the patterns ending exactly at v (duplicates allowed;
+ * empty patterns are not). A pattern also matches at state v if it ends at any
+ * node on v's suffix-link chain. Suffix links form a tree rooted at 0; order holds
+ * non-root nodes in BFS order (increasing depth), so iterating it backwards
+ * processes every node before its link (e.g. cnt[link[v]] += cnt[v] gives the
+ * number of occurrences of each node's string in the text). For DP over the
+ * automaton, states are node indices and transitions are go[][]; mark a node bad
+ * if it or any node on its link chain has labels (propagate in BFS order).
+ * Time: construction O(26N), N = sum of pattern lengths; walking a text O(|text|).
  * Status: stress-tested
  */
 #pragma once
-
-struct AhoCorasick {
-	enum {alpha = 26, first = 'A'}; // change this!
-	struct Node {
-		// (nmatches is optional)
-		int back, next[alpha], start = -1, end = -1, nmatches = 0;
-		Node(int v) { memset(next, v, sizeof(next)); }
-	};
-	vector<Node> N;
-	vi backp;
-	void insert(string& s, int j) {
-		assert(!s.empty());
-		int n = 0;
-		for (char c : s) {
-			int& m = N[n].next[c - first];
-			if (m == -1) { n = m = sz(N); N.emplace_back(-1); }
-			else n = m;
-		}
-		if (N[n].end == -1) N[n].start = j;
-		backp.push_back(N[n].end);
-		N[n].end = j;
-		N[n].nmatches++;
-	}
-	AhoCorasick(vector<string>& pat) : N(1, -1) {
-		rep(i,0,sz(pat)) insert(pat[i], i);
-		N[0].back = sz(N);
-		N.emplace_back(0);
-
-		queue<int> q;
-		for (q.push(0); !q.empty(); q.pop()) {
-			int n = q.front(), prev = N[n].back;
-			rep(i,0,alpha) {
-				int &ed = N[n].next[i], y = N[prev].next[i];
-				if (ed == -1) ed = y;
-				else {
-					N[ed].back = y;
-					(N[ed].end == -1 ? N[ed].end : backp[N[ed].start])
-						= N[y].end;
-					N[ed].nmatches += N[y].nmatches;
-					q.push(ed);
-				}
-			}
-		}
-	}
-	vi find(string word) {
-		int n = 0;
-		vi res; // ll count = 0;
-		for (char c : word) {
-			n = N[n].next[c - first];
-			res.push_back(N[n].end);
-			// count += N[n].nmatches;
-		}
-		return res;
-	}
-	vector<vi> findAll(vector<string>& pat, string word) {
-		vi r = find(word);
-		vector<vi> res(sz(word));
-		rep(i,0,sz(word)) {
-			int ind = r[i];
-			while (ind != -1) {
-				res[i - sz(pat[ind]) + 1].push_back(ind);
-				ind = backp[ind];
-			}
-		}
-		return res;
-	}
+const int ALPH = 26;
+const char BEGA = 'a';
+struct Corasick {
+struct Node {
+    vector<int> labels;
+    int link = -1;
+    int go[ALPH];
+    Node() { fill(begin(go), end(go), -1);}
+};
+    vector<Node> vec; 
+    vector<int> order; // BFS order (root excluded) 
+    void insert(const string& s, int label) {
+        int ind = 0;
+        for(auto& c : s) {
+           if(vec[ind].go[c - BEGA] == -1) {
+                vec.push_back(Node());
+                vec[ind].go[c - BEGA] = vec.size() - 1;
+           } 
+           ind = vec[ind].go[c - BEGA];
+        }
+        vec[ind].labels.push_back(label);
+    }
+    Corasick(const vector<string>& pat) {
+        vec.push_back(Node());
+        for(int i = 0; i < (int)pat.size(); i++) {
+            insert(pat[i], i);
+        }
+        vec[0].link = 0;
+        queue<int> que;
+        for(int i = 0; i < ALPH; i++) {
+            if(vec[0].go[i] == -1) vec[0].go[i] = 0;
+            else {
+                que.push(vec[0].go[i]);
+                vec[ vec[0].go[i] ].link = 0;
+            }
+        }
+        while(!que.empty()) {
+            auto cur = que.front();
+            order.push_back(cur);
+            que.pop();
+            for(int c = 0; c < ALPH; c++) {
+                if(vec[cur].go[c] == -1) {
+                    vec[cur].go[c] = vec[ vec[cur].link ].go[c];
+                }
+                else {
+                    que.push(vec[cur].go[c]);
+                    vec[ vec[cur].go[c] ].link = vec[ vec[cur].link ].go[c];
+                }
+            }
+        }
+    }
 };
