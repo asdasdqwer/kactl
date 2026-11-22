@@ -43,3 +43,13 @@
 	\kactlimport{Point3D.h}
 	\kactlimport{3dHull.h}
 	\kactlimport{sphericalDistance.h}
+
+
+\section{Formulas}
+\textbf{Polygon area} (vertices $p_0, \dots, p_{n-1}$ in order, $p_n = p_0$; positive iff counter-clockwise):
+\[ A = \tfrac12 \sum_{i=0}^{n-1} (x_i y_{i+1} - x_{i+1} y_i) = \tfrac12 \sum_{i=0}^{n-1} (y_i + y_{i+1})(x_i - x_{i+1}) \]
+\textbf{Pick's theorem} (simple polygon with integer vertices; $I$ interior, $B$ boundary lattice points):
+\[ A = I + \tfrac{B}{2} - 1, \qquad B = \textstyle\sum_i \gcd(|x_{i+1} - x_i|, |y_{i+1} - y_i|) \]
+\textbf{Manhattan:} $(x, y) \mapsto (x + y,\ x - y)$
+
+\textbf{Rotation}: $(x, y) \mapsto (x\cos\theta - y\sin\theta,\ x\sin\theta + y\cos\theta)$.
