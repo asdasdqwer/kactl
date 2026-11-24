@@ -49,16 +49,18 @@
 
 	The number of divisors of $n$ is at most around 100 for $n < 5e4$, 500 for $n < 1e7$, 2000 for $n < 1e10$, 200\,000 for $n < 1e19$.
 
-\section{Mobius Function}
-\[
-	\mu(n) = \begin{cases} 0 & n \textrm{ is not square free}\\ 1 & n \textrm{ has even number of prime factors}\\ -1 & n \textrm{ has odd number of prime factors}\\\end{cases}
-\]
-  Mobius Inversion:
-  \[ g(n) = \sum_{d|n} f(d) \Leftrightarrow f(n) = \sum_{d|n} \mu(d)g(n/d) \]
-  Other useful formulas/forms:
-
-  $ \sum_{d | n} \mu(d) = [ n = 1] $ (very useful)
-
-  $ g(n) = \sum_{n|d} f(d) \Leftrightarrow f(n) = \sum_{n|d} \mu(d/n)g(d)$
-
- $ g(n) = \sum_{1 \leq m \leq n} f(\left\lfloor\frac{n}{m}\right \rfloor ) \Leftrightarrow f(n) = \sum_{1\leq m\leq n} \mu(m)g(\left\lfloor\frac{n}{m}\right\rfloor)$
+\section{Möbius inversion}
+\textbf{Posets.} $g(t) = \sum_{s \le t} f(s) \iff f(t) = \sum_{s \le t} \mu(s, t)\, g(s)$, where
+$\mu(t, t) = 1$, $\mu(s, t) = -\sum_{s < u \le t} \mu(u, t)$ for $s < t$, and $0$ otherwise.
+For the reversed order use $\mu(t, s)$. Subsets: $\mu(s, t) = (-1)^{|t \setminus s|}$.
+Divisibility: $\mu(s, t) = \mu(t/s)$ with
+\[ \mu(n) = \begin{cases} 0 & n \text{ not square-free} \\ (-1)^k & n \text{ has } k \text{ distinct prime factors} \end{cases} \]
+\textbf{Number theory.} $\sum_{d \mid n} \mu(d) = [n = 1]$ (very useful), and
+\begin{gather*}
+g(n) = \textstyle\sum_{d \mid n} f(d) \iff f(n) = \sum_{d \mid n} \mu(d)\, g(n/d) \\
+g(n) = \textstyle\sum_{n \mid d} f(d) \iff f(n) = \sum_{n \mid d} \mu(d/n)\, g(d) \\
+g(n) = \textstyle\sum_{m=1}^{n} f(\lfloor n/m \rfloor) \iff f(n) = \sum_{m=1}^{n} \mu(m)\, g(\lfloor n/m \rfloor)
+\end{gather*}
+\textbf{Convolutions} $c_k = \sum_{i \circ j = k} a_i b_j$: sum $a$ and $b$ over the order ($\zeta$),
+multiply pointwise, then invert with $\mu$. The order is supersets for AND, subsets for OR,
+multiples for $\gcd$ and divisors for $\operatorname{lcm}$.

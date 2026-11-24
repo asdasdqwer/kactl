@@ -29,38 +29,10 @@
 	\kactlimport{FastFourierTransformMod.h}
 	\kactlimport{NumberTheoreticTransform.h}
 	\kactlimport{FastSubsetTransform.h}
+  \kactlimport{GcdLcmTransform.h}
 
-  \kactlimport{Mobius.h}
+  \subsection{Lagrange Interpolation}
+  $$f(x)=\sum_{i=0}^{n-1} y_i \prod_{\substack{j=0\\ j\ne i}}^{n-1}\frac{x-j}{i-j}$$
+For $x_i$ consecutive
+$$f(x)=\sum_{i=0}^{n-1} y_i\,\frac{(-1)^{\,n-1-i}}{i!\,(n-1-i)!}\prod_{\substack{j=0\\ j\ne i}}^{n-1}(x-j)$$
 
-  \subsection{Mobius Transform}
-  Poset $S$ mit $\leq$ reflexiv, transitiv und antisymmetrisch. Sei
-  \[ g(t) = \sum_{s \leq t} f(s) = \sum_s \zeta(s, t) f(s), \qquad \zeta(s, t) := [s \leq t]. \]
-  Dann ist
-  \[ f(t) = \sum_{s \leq t} \mu(s, t)\, g(s) \]
-  mit
-  \[ \mu(s, t) := \begin{cases}
-    0 & s \not\leq t \\
-    1 & s = t \\
-    -\sum_{s < u \leq t} \mu(u, t) & \text{sonst,}
-  \end{cases} \]
-  denn $\sum_u \zeta(s, u) \mu(u, t) = \sum_{s \leq u \leq t} \mu(u, t) = [s = t]$.
-
-  \begin{center}
-  \begin{tabular}{c|c}
-    Poset & $\mu(s, t)$ \\ \hline
-    $2^S, \subseteq$ & $(-1)^{|t \setminus s|}$ \\
-    $\mathbb{N}, \mid$ & $\mu(t/s)$
-  \end{tabular}
-  \end{center}
-  Für den umgedrehten DAG einfach $\mu(s, t)$ durch $\mu(t, s)$ ersetzen.
-
-  Faltungen ($\zeta$: Summe über die Ordnung, punktweise multiplizieren, dann $\mu$):
-  \begin{center}
-  \begin{tabular}{l|l}
-    Faltung & Ordnung für $\zeta$ und $\mu$ \\ \hline
-    And: $\sum_{i \,\&\, j = k} a_i b_j$ & Obermengen \\
-    Or: $\sum_{i \mid j = k} a_i b_j$ & Teilmengen \\
-    Gcd: $\sum_{\gcd(i, j) = k} a_i b_j$ & Vielfache \\
-    Lcm: $\sum_{\operatorname{lcm}(i, j) = k} a_i b_j$ & Teiler
-  \end{tabular}
-  \end{center}
