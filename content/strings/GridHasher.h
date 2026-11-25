@@ -9,8 +9,9 @@
 
 #include "Hashing.h"
 
-static const H R = (ll)1e9 + 7;
-static const H C = (ll)1e11+3; 
+static const H R = mt19937_64(chrono::...);
+static const H C = mt19937_64(chrono::... + 1); 
+// Careful: C also defined in Hashing.h, R != C necessary
 struct GridHash {
 	vector<vector<H>> h; vector<H> pr, pc;
 	GridHash(vector<string>& g) : h(sz(g) + 1, vector<H>(sz(g[0]) + 1)),
