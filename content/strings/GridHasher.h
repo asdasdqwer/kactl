@@ -2,8 +2,7 @@
  * Author: Niklas Leinert
  * License: MIT
  * Source: me
- * Description: 2D hashing of a grid: hash of any rectangle in O(1).
- *  Equal rectangles (same size and content) get equal hashes, wherever they are.
+ * Description: Grid Hasher
  * Status: stress-tested
  */
 #pragma once

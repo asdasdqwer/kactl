@@ -4,7 +4,8 @@
  * License: CC0
  * Source: folklore
  * Description: Computes sums a[i,j] for all i<I, j<J, and increases single elements a[i,j].
- *  Requires that the elements to be updated are known in advance (call fakeUpdate() before init()).
+ * Requires that the elements to be updated are known in advance (call fakeUpdate() before init()).
+ * $x$ has to be small (limx $\leq 10^6$), whereas $y$ can be up to $10^9$
  * Time: $O(\log^2 N)$. (Use persistent segment trees for $O(\log N)$.)
  * Status: stress-tested
  */

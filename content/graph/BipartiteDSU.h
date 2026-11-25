@@ -10,9 +10,9 @@
 
 #pragma once
 
-struct BipDSU {
+struct BipartiteDSU {
 	vi p, c;
-	BipDSU(int n) : p(n, -1), c(n) {}
+	BipartiteDSU(int n) : p(n, -1), c(n) {}
 	pii find(int x) {
 		if (p[x] < 0) return {x, 0};
 		auto [r, q] = find(p[x]);

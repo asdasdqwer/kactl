@@ -2,8 +2,7 @@ Recursion
 Divide and conquer
 	Finding interesting points in N log N
 Algorithm analysis
-	Master theorem
-	Amortized time complexity
+	Master theorem, Amortized time complexity
 Greedy algorithm
 	Scheduling
 	Max contiguous subvector sum
@@ -11,31 +10,21 @@ Greedy algorithm
 	Huffman encoding
 Graph theory
 	Dynamic graphs (extra book-keeping)
-	Breadth first search
-	Depth first search
+	BFS, DFS
 	* Normal trees / DFS trees
-	Dijkstra's algorithm
-	MST: Prim's algorithm
-	Bellman-Ford
+	Dijkstra's algorithm, Bellman-Ford, Floyd-Warshall
+	MST: Prim / Kruskal / Boruvka's Algorithm
 	Konig's theorem and vertex cover
-	Min-cost max flow
-	Lovasz toggle
+	Min-cost max flow, Lovasz toggle
 	Matrix tree theorem
-	Maximal matching, general graphs
-	Hopcroft-Karp
+	Maximal matching, general graphs, Hopcroft-Karp
 	Hall's marriage theorem
-	Graphical sequences
-	Floyd-Warshall
-	Euler cycles
+	Graphical sequences, Euler cycles
 	Flow networks
-	* Augmenting paths
-	* Edmonds-Karp
-	Bipartite matching
-	Min. path cover
-	Topological sorting
-	Strongly connected components
-	2-SAT
-	Cut vertices, cut-edges and biconnected components
+	* Augmenting paths, Edmonds-Karp
+	Bipartite matching, Min. path cover
+	Topological sorting, Strongly connected components
+	2-SAT, Cut vertices, cut-edges and biconnected components
 	Edge coloring
 	* Trees
 	Vertex coloring
