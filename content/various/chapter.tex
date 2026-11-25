@@ -51,13 +51,19 @@
 	% \kactlimport{Unrolling.h}
 	% \kactlimport{SIMD.h}
 
-\section{C++ Math functions}
-	\begin{tabular}{|c|c|} \hline
-		acos & [-1, 1] $\rightarrow$ [0, $\pi$] \\ \hline
-		asin & [-1, 1] $\rightarrow$ [$-\frac{\pi}{2}$, $\frac{\pi}{2}$] \\ \hline
-		atan(x) & $x \rightarrow$ [$-\frac{\pi}{2}$, $\frac{\pi}{2}$] \\ \hline
-		atan2(y, x) & $\frac{y}{x} \rightarrow$ [$-\pi$, $\pi$] \\ \hline
-	\end{tabular}
+	\section{Bitwise built-in functions}
+	Remember: If you're using 64-bit integers, remember to use the l/ll version of the functions
+	\begin{itemize}
+  		\item \_\_builtin\_ffs: Returns one plus the index of the least significant 1-bit of x, or if x is zero, returns zero.
+  		\item \_\_builtin\_clz: Returns the number of leading 0-bits in x, starting at the most significant bit position. If x is 0, the result is undefined.
+  		\item \_\_builtin\_ctz: Returns the number of trailing 0-bits in x, starting at the least significant bit position. If x is 0, the result is undefined.
+		\item \_\_builtin\_clrsb: Returns the number of leading redundant sign bits in x, i.e. the number of bits following the most significant bit that are identical to it.
+		\item \_\_builtin\_popcount: Returns the number of 1-bits in x.
+		\item \_\_builtin\_parity: Returns the parity of x, i.e. the number of 1-bits in x modulo 2.
+	\end{itemize}
+
+
+
 
 \section{Information about numbers}
 		How to read this table: [Upper bound] | [Max. number of divisors] | [Max. number of distinct prime divisors] | [Smallest primes greater than bound] | [Max. difference between primes] | [Sum of Divisor Count] | [Prime count]
@@ -80,17 +86,14 @@
 	$10^{18}$ & 103680 & 15 & 3, 9, 31, 79, 177     & 1442 & $4.160 \cdot 10^{19}$ & $2.474 \cdot 10^{16}$ \\ \hline
 	\end{tabular}
 
+	\section{C++ Math functions}
+	\begin{tabular}{|c|c|} \hline
+		acos & [-1, 1] $\rightarrow$ [0, $\pi$] \\ \hline
+		asin & [-1, 1] $\rightarrow$ [$-\frac{\pi}{2}$, $\frac{\pi}{2}$] \\ \hline
+		atan(x) & $x \rightarrow$ [$-\frac{\pi}{2}$, $\frac{\pi}{2}$] \\ \hline
+		atan2(y, x) & $\frac{y}{x} \rightarrow$ [$-\pi$, $\pi$] \\ \hline
+	\end{tabular}
 
-\section{Bitwise built-in functions}
-	Remember: If you're using 64-bit integers, remember to use the l/ll version of the functions
-	\begin{itemize}
-  		\item \_\_builtin\_ffs: Returns one plus the index of the least significant 1-bit of x, or if x is zero, returns zero.
-  		\item \_\_builtin\_clz: Returns the number of leading 0-bits in x, starting at the most significant bit position. If x is 0, the result is undefined.
-  		\item \_\_builtin\_ctz: Returns the number of trailing 0-bits in x, starting at the least significant bit position. If x is 0, the result is undefined.
-		\item \_\_builtin\_clrsb: Returns the number of leading redundant sign bits in x, i.e. the number of bits following the most significant bit that are identical to it.
-		\item \_\_builtin\_popcount: Returns the number of 1-bits in x.
-		\item \_\_builtin\_parity: Returns the parity of x, i.e. the number of 1-bits in x modulo 2.
-	\end{itemize}
 
 
 	\kactlimport{NiklasDebug.h}
