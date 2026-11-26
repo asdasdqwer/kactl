@@ -23,7 +23,9 @@ struct H {
 	bool operator<(H o) const { return x < o.x; }
 };
 
-static const H C = mt19937_64(chrono::...); // C < M always true
+static const H C = mt19937_64(chrono::...)(); // C < M always true
+static const H R = mt19937_64(chrono::... + 1)();
+// R only for GridHasher, R != C necessary
 
 struct HashInterval {
 	vector<H> ha, pw;

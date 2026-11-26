@@ -12,7 +12,7 @@
 
 #pragma once
 typedef vector<ll> vl;
-vl conv(vl> f, vl g, vl primes, bool lcm) {
+vl conv(vl f, vl g, vi primes, bool lcm) {
 	int n = sz(f);
 	auto go = [&](vl& a, bool inv) {
 		for (int p : primes) {
